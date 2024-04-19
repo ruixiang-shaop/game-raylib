@@ -29,7 +29,7 @@
 PLATFORM              ?= PLATFORM_DESKTOP
 
 # Define project variables
-PROJECT_NAME          ?= raylib_game
+PROJECT_NAME          ?= Game
 PROJECT_VERSION       ?= 1.0
 PROJECT_BUILD_PATH    ?= .
 
@@ -188,13 +188,8 @@ endif
 
 # Define source code object files required
 #------------------------------------------------------------------------------------------------
-PROJECT_SOURCE_FILES ?= \
-    raylib_game.cpp \
-    screen_logo.cpp \
-    screen_title.cpp \
-    screen_options.cpp \
-    screen_gameplay.cpp \
-    screen_ending.cpp
+PROJECT_SOURCE_DIR = src
+PROJECT_SOURCE_FILES = $(wildcard $(PROJECT_SOURCE_DIR)/*.cpp)
 
 # Define all object files from source files
 OBJS = $(patsubst %.cpp, %.o, $(PROJECT_SOURCE_FILES))
@@ -205,7 +200,6 @@ OBJS = $(patsubst %.cpp, %.o, $(PROJECT_SOURCE_FILES))
 MAKEFILE_PARAMS = $(PROJECT_NAME)
 
 # Default target entry
-# NOTE: We call this Makefile target or Makefile.Android target
 all:
 	$(MAKE) $(MAKEFILE_PARAMS)
 
@@ -240,11 +234,11 @@ clean_shell_sh:
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),LINUX)
 		find . -type f -executable -delete
-		rm -fv *.o
+		rm -fv $(PROJECT_SOURCE_DIR)/*.o
     endif
 endif
 
 # Set specific target variable
 clean_shell_cmd: SHELL=cmd
 clean_shell_cmd:
-	del *.o *.exe $(PROJECT_NAME).data $(PROJECT_NAME).html $(PROJECT_NAME).js $(PROJECT_NAME).wasm /s
+	del $(PROJECT_SOURCE_DIR)/*.o *.exe $(PROJECT_NAME).data $(PROJECT_NAME).html $(PROJECT_NAME).js $(PROJECT_NAME).wasm /s
