@@ -47,6 +47,14 @@
 		"chrono": "cpp",
 		"ctime": "cpp",
 		"ratio": "cpp",
-		"iostream": "cpp"
+		"iostream": "cpp",
+		"cstring": "cpp",
+		"bitset": "cpp",
+		"map": "cpp",
+		"set": "cpp",
+		"iomanip": "cpp",
+		"thread": "cpp",
+		"cinttypes": "cpp",
+		"*.m": "cpp"
 	}
 }

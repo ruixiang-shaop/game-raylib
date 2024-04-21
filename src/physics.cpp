@@ -7,26 +7,47 @@ namespace Game
 
 void Physics::update(State &state)
 {
-	state.player.update();
-	state.enemy.update();
-	state.ball.update();
+	auto &player = state.player;
+	auto &enemy = state.enemy;
+	auto &ball = state.ball;
 
-	if ((state.ball.position.y <= 0) ||
-		(state.ball.position.y >= Screen::Height))
+	player.update();
+	enemy.update();
+	ball.update();
+
+	Rectangle leftBorder {-1, 0, 1, Screen::Height};
+	Rectangle rightBorder {Screen::Width, 0, 1, Screen::Height};
+
+	if (CheckCollisionCircleRec(ball.position, ball.r, leftBorder))
 	{
-		state.ball.speed.y *= -1;
-		state.ball.bounced = true;
+		state.roundState = RoundState::Lose;
+		return;
+	}
+	else if (CheckCollisionCircleRec(ball.position, ball.r, rightBorder))
+	{
+		state.roundState = RoundState::Win;
+		return;
+	}
+
+	Rectangle topBorder {0, 0, Screen::Width, 0};
+	Rectangle bottomBorder {0, Screen::Height, Screen::Width, 0};
+
+	if (CheckCollisionCircleRec(ball.position, ball.r, topBorder) ||
+		CheckCollisionCircleRec(ball.position, ball.r, bottomBorder))
+	{
+		ball.speed.y *= -1;
+		ball.bounced = true;
 		
 	}
-	else if ((state.ball.position.x <= 0) ||
-		(state.ball.position.x >= Screen::Width))
+	else if (CheckCollisionCircleRec(ball.position, ball.r, player.box) ||
+		CheckCollisionCircleRec(ball.position, ball.r, enemy.box))
 	{
-		state.ball.speed.x *= -1;
-		state.ball.bounced = true;
+		ball.speed.x *= -1;
+		ball.bounced = true;
 	}
 	else
 	{
-		state.ball.bounced = false;
+		ball.bounced = false;
 	}
 }
 

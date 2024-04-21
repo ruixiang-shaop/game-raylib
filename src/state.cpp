@@ -1,17 +1,9 @@
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
 #include "raylib.h"
 #include "include/state.hpp"
+#include "lib/helpers.hpp"
 
 namespace Game
 {
-
-Ball::Ball(Vector2 pos)
-{
-	position.x = pos.x;
-	position.y = pos.y;
-}
 
 void Ball::update()
 {
@@ -19,32 +11,23 @@ void Ball::update()
 	position.y += speed.y;
 }
 
-Player::Player(Vector2 pos)
-{
-	position.x = pos.x;
-	position.y = pos.y;
-}
-
 void Player::update()
 {
-	position.y += speed;
+	box.y += speed;
 }
 
 void State::startGame()
 {
-    std::srand(std::time(nullptr));
-	const double pi = std::acos(-1);
 
-	// Calculate random vector for ball with its normal speed
-	const double random01 = static_cast<double>(std::rand()) / RAND_MAX;
+	roundState = RoundState::Playing;
 
-	const double angle = 2 * pi * random01;
+	auto ballVector = getRandomUnityVector();
+	ball.position = BallSpawnPosition;
+	ball.speed.x = ballVector.x * BallNormalSpeed;
+	ball.speed.y = ballVector.y * BallNormalSpeed;
 
-	const double x = std::cos(angle) * BallNormalSpeed;
-	const double y = std::sin(angle) * BallNormalSpeed;
-
-	this->ball.speed.x = x;
-	this->ball.speed.y = y;
+	player.box = {PlayerSpawnPosition.x, PlayerSpawnPosition.y, Player::DefaultW, Player::DefaultH};
+	enemy.box = {EnemySpawnPosition.x, EnemySpawnPosition.y, Player::DefaultW, Player::DefaultH};
 }
 
 }
