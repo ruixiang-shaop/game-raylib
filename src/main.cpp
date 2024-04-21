@@ -43,6 +43,8 @@ int main()
 
 		Game::Inputs::handleInput(state);
 		Game::Physics::update(state);
+		
+		if (state.ball.bounced) sounds.play(Game::SoundTypes::Hit);
 
         BeginDrawing();
 
@@ -54,7 +56,10 @@ int main()
 		DrawCircle(state.ball.position.x, state.ball.position.y,
 			state.ball.r, WHITE);
 
+		DrawFPS(10,10);
+
         EndDrawing();
+		
 
 		while (true) {
 			const auto frameEnd = std::chrono::steady_clock::now();

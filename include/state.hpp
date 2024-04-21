@@ -13,6 +13,7 @@ struct Ball
 
 	Vector2 position;
 	Vector2 speed {0, 0};
+	bool bounced = false;
 	const unsigned int r = 10;
 };
 

@@ -4,10 +4,12 @@
 
 namespace Game
 {
+
 class Physics
 {
 public:
 	static void update(State &state);
 
 };
+
 }

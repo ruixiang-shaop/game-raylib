@@ -15,11 +15,18 @@ void Physics::update(State &state)
 		(state.ball.position.y >= Screen::Height))
 	{
 		state.ball.speed.y *= -1;
+		state.ball.bounced = true;
+		
 	}
-	if ((state.ball.position.x <= 0) ||
+	else if ((state.ball.position.x <= 0) ||
 		(state.ball.position.x >= Screen::Width))
 	{
 		state.ball.speed.x *= -1;
+		state.ball.bounced = true;
+	}
+	else
+	{
+		state.ball.bounced = false;
 	}
 }
 
