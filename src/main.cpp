@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <ctime>
 #include "raylib.h"
 #include "include/screen.hpp"
 #include "include/sounds.hpp"
@@ -23,13 +24,15 @@
 
 int main()
 {
+    std::srand(std::time(nullptr));
+
     InitWindow(Game::Screen::Width, Game::Screen::Height, "Game");
 
     InitAudioDevice();      // Initialize audio device
 
     SetTargetFPS(60);       // Set our game to run at 60 frames-per-second
 	constexpr int gameLogicTPS = 60;						// Game logic is updated 60 times per second
-	constexpr double gameLogicTickInNs = (1/gameLogicTPS)*1000000000;	// Tick duration in nanoseconds
+	constexpr double gameLogicTickInNs = (1.0/gameLogicTPS)*1000000000;	// Tick duration in nanoseconds
 
 	Game::SoundCollection sounds;
 	Game::State state;
@@ -78,7 +81,7 @@ int main()
 
 		while (true) {
 			const auto frameEnd = std::chrono::steady_clock::now();
-			auto ellapsed = std::chrono::duration_cast<std::chrono::microseconds>(
+			auto ellapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
 				frameEnd - frameStart).count();
 			if (ellapsed >= gameLogicTickInNs) break;
 		}

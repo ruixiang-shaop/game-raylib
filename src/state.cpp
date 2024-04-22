@@ -21,7 +21,11 @@ void State::startGame()
 
 	roundState = RoundState::Playing;
 
-	auto ballVector = getRandomUnityVector();
+	// Get restricted random angle and choose start side
+	bool startLeft = getRandomNumberBetween(0,99) > 50;
+	int randomAngle = getRandomNumberBetween(-BallMaxStartingAngle, BallMaxStartingAngle);
+	if (startLeft) randomAngle = 180 - randomAngle;
+	auto ballVector = getUnityVector(randomAngle);
 	ball.position = BallSpawnPosition;
 	ball.speed.x = ballVector.x * BallNormalSpeed;
 	ball.speed.y = ballVector.y * BallNormalSpeed;

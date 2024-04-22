@@ -41,6 +41,7 @@ class State
 private:
 	const float OffsetX = 5.0;
 	const Vector2 BallSpawnPosition {Screen::Width/2, Screen::Height/2};
+	const int BallMaxStartingAngle = 60;
 	const float BallNormalSpeed = 8.0;
 	const Vector2 PlayerSpawnPosition {OffsetX, Screen::Height/2-Player::DefaultH/2};
 	const Vector2 EnemySpawnPosition {Screen::Width - Player::DefaultW - OffsetX, Screen::Height/2-Player::DefaultH/2};
