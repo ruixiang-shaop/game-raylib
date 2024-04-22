@@ -31,8 +31,6 @@ int main()
     InitAudioDevice();      // Initialize audio device
 
     SetTargetFPS(60);       // Set our game to run at 60 frames-per-second
-	constexpr int gameLogicTPS = 60;						// Game logic is updated 60 times per second
-	constexpr double gameLogicTickInNs = (1.0/gameLogicTPS)*1000000000;	// Tick duration in nanoseconds
 
 	Game::SoundCollection sounds;
 	Game::State state;
@@ -42,8 +40,6 @@ int main()
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-		const auto frameStart = std::chrono::steady_clock::now();
-
 		Game::Inputs::handleInput(state);
 		Game::Physics::update(state);
 		
@@ -77,14 +73,6 @@ int main()
 		DrawText(enemyPointsText.c_str(), 600, 40, 20, RED);
 
         EndDrawing();
-		
-
-		while (true) {
-			const auto frameEnd = std::chrono::steady_clock::now();
-			auto ellapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
-				frameEnd - frameStart).count();
-			if (ellapsed >= gameLogicTickInNs) break;
-		}
     }
 
     // Unload global data loaded
