@@ -16,14 +16,13 @@ bool Inputs::isPlayerDown()
 
 void Inputs::handleInput(State &state)
 {
-	const float PlayerDefaultSpeed = 5.0;
 	if (Game::Inputs::isPlayerUp())
 	{
-		state.player.speed = -PlayerDefaultSpeed;
+		state.player.speed = -Player::DefaultSpeed;
 	}
 	else if (Game::Inputs::isPlayerDown())
 	{
-		state.player.speed = PlayerDefaultSpeed;
+		state.player.speed = Player::DefaultSpeed;
 	}
 	else
 	{

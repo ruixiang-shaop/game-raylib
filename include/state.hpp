@@ -29,6 +29,7 @@ struct Player
 	float speed {0};
 	static constexpr int DefaultW = 20;
 	static constexpr int DefaultH = 150;
+	static constexpr int DefaultSpeed = 5;
 };
 
 enum RoundState : std::uint8_t

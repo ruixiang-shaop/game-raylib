@@ -18,6 +18,7 @@
 #include "include/screen.hpp"
 #include "include/sounds.hpp"
 #include "include/state.hpp"
+#include "include/enemyAI.hpp"
 #include "include/inputs.hpp"
 #include "include/physics.hpp"
 
@@ -42,6 +43,7 @@ int main()
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
 		Game::Inputs::handleInput(state);
+		Game::EnemyAI::update(state);
 		Game::Physics::update(state);
 		
 		if (state.ball.bounced) sounds.play(Game::SoundTypes::Hit);
@@ -61,8 +63,7 @@ int main()
         BeginDrawing();
 
 		ClearBackground(BLACK);
-		DrawLine(Game::Screen::GamePosition.x, Game::Screen::GamePosition.y,
-			Game::Screen::GameWidth, Game::Screen::GamePosition.y, WHITE);
+		DrawRectangle(Game::Screen::GamePosition.x, Game::Screen::GamePosition.y, Game::Screen::GameWidth, 2, WHITE);
 		DrawRectangle(state.player.box.x, state.player.box.y,
 			state.player.box.width, state.player.box.height, WHITE);
 		DrawRectangle(state.enemy.box.x, state.enemy.box.y,
@@ -72,8 +73,8 @@ int main()
 
 		auto playerPointsText = std::to_string(state.playerPoints);
 		auto enemyPointsText = std::to_string(state.enemyPoints);
-		DrawText(playerPointsText.c_str(), Game::Screen::ScoreboardWidth/2-100, 0, Game::Screen::ScoreboardHeight, RED);
-		DrawText(enemyPointsText.c_str(), Game::Screen::ScoreboardWidth/2+100, 0, Game::Screen::ScoreboardHeight, RED);
+		DrawText(playerPointsText.c_str(), Game::Screen::ScoreboardWidth/2-100, 2, Game::Screen::ScoreboardHeight, RED);
+		DrawText(enemyPointsText.c_str(), Game::Screen::ScoreboardWidth/2+100, 2, Game::Screen::ScoreboardHeight, RED);
 
         EndDrawing();
     }
