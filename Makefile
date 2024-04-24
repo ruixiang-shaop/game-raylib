@@ -241,4 +241,4 @@ endif
 # Set specific target variable
 clean_shell_cmd: SHELL=cmd
 clean_shell_cmd:
-	del $(PROJECT_SOURCE_DIR)/*.o *.exe $(PROJECT_NAME).data $(PROJECT_NAME).html $(PROJECT_NAME).js $(PROJECT_NAME).wasm /s
+	del $(PROJECT_SOURCE_DIR)\*.o *.exe $(PROJECT_NAME).data $(PROJECT_NAME).html $(PROJECT_NAME).js $(PROJECT_NAME).wasm /s
