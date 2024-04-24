@@ -2,7 +2,6 @@
 #include "include/screen.hpp"
 #include "lib/utils.hpp"
 #include "raylib.h"
-#include <iostream>
 
 namespace Game
 {
@@ -46,7 +45,6 @@ void Physics::update(State &state)
 	// Ball collision against player
 	if (CheckCollisionCircleRec(ball.position, ball.r, player.box))
 	{
-		Vector2 ballOldPosition = Utils::getPreviousPosition(ball.position, ball.speed);
 		switch (Utils::getCollisionSideRectCircle(player.box, ball.position))
 		{
 			case Side::Top:
@@ -62,7 +60,6 @@ void Physics::update(State &state)
 	// Ball collision against enemy
 	else if (CheckCollisionCircleRec(ball.position, ball.r, enemy.box))
 	{
-		Vector2 ballOldPosition = Utils::getPreviousPosition(ball.position, ball.speed);
 		switch (Utils::getCollisionSideRectCircle(enemy.box, ball.position))
 		{
 			case Side::Top:

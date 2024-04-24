@@ -13,7 +13,6 @@
 ********************************************************************************************/
 
 #include <iostream>
-#include <chrono>
 #include <ctime>
 #include "raylib.h"
 #include "include/screen.hpp"
