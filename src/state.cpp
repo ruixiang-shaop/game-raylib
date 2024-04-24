@@ -27,6 +27,16 @@ void Ball::bounceVertical()
 void Player::update()
 {
 	box.y += speed;
+
+	if (box.y < Game::Screen::GamePosition.y)
+	{
+		box.y = Game::Screen::GamePosition.y;
+	}
+	const auto furthestDownY = Game::Screen::GamePosition.y + Game::Screen::GameHeight - box.height;
+	if (box.y > furthestDownY)
+	{
+		box.y = furthestDownY;
+	}
 }
 
 void State::startGame()
