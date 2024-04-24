@@ -55,6 +55,8 @@
 		"iomanip": "cpp",
 		"thread": "cpp",
 		"cinttypes": "cpp",
-		"*.m": "cpp"
+		"*.m": "cpp",
+		"compare": "cpp",
+		"concepts": "cpp"
 	}
 }

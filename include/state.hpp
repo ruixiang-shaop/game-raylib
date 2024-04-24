@@ -11,6 +11,9 @@ struct Ball
 {
 	void update();
 
+	void bounceHorizontal();
+	void bounceVertical();
+
 	Vector2 position;
 	Vector2 speed {0, 0};
 	bool bounced = false;
@@ -40,11 +43,12 @@ class State
 {
 private:
 	const float OffsetX = 5.0;
-	const Vector2 BallSpawnPosition {Screen::Width/2, Screen::Height/2};
+	const Vector2 BallSpawnPosition {Screen::GameWidth/2, Screen::GamePosition.y + Screen::GameHeight/2};
 	const int BallMaxStartingAngle = 60;
 	const float BallNormalSpeed = 8.0;
-	const Vector2 PlayerSpawnPosition {OffsetX, Screen::Height/2-Player::DefaultH/2};
-	const Vector2 EnemySpawnPosition {Screen::Width - Player::DefaultW - OffsetX, Screen::Height/2-Player::DefaultH/2};
+	const Vector2 PlayerSpawnPosition {OffsetX, Screen::GamePosition.y + Screen::GameHeight/2-Player::DefaultH/2};
+	const Vector2 EnemySpawnPosition {Screen::GameWidth - Player::DefaultW - OffsetX,
+									Screen::GamePosition.y + Screen::GameHeight/2-Player::DefaultH/2};
 public:
 	void startGame();
 

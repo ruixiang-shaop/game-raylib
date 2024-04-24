@@ -22,6 +22,8 @@
 #include "include/inputs.hpp"
 #include "include/physics.hpp"
 
+#include "lib/utils.hpp"
+
 int main()
 {
     std::srand(std::time(nullptr));
@@ -60,6 +62,8 @@ int main()
         BeginDrawing();
 
 		ClearBackground(BLACK);
+		DrawLine(Game::Screen::GamePosition.x, Game::Screen::GamePosition.y,
+			Game::Screen::GameWidth, Game::Screen::GamePosition.y, WHITE);
 		DrawRectangle(state.player.box.x, state.player.box.y,
 			state.player.box.width, state.player.box.height, WHITE);
 		DrawRectangle(state.enemy.box.x, state.enemy.box.y,
@@ -69,8 +73,8 @@ int main()
 
 		auto playerPointsText = std::to_string(state.playerPoints);
 		auto enemyPointsText = std::to_string(state.enemyPoints);
-		DrawText(playerPointsText.c_str(), 200, 40, 20, RED);
-		DrawText(enemyPointsText.c_str(), 600, 40, 20, RED);
+		DrawText(playerPointsText.c_str(), Game::Screen::ScoreboardWidth/2-100, 0, Game::Screen::ScoreboardHeight, RED);
+		DrawText(enemyPointsText.c_str(), Game::Screen::ScoreboardWidth/2+100, 0, Game::Screen::ScoreboardHeight, RED);
 
         EndDrawing();
     }
