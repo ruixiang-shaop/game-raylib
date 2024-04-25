@@ -12,6 +12,8 @@ void Physics::update(State &state)
 	auto &enemy = state.enemy;
 	auto &ball = state.ball;
 
+	bool bounced = false;
+
 	Vector2 newBallPosition = Utils::getNextPosition(ball.position, ball.speed);
 
 	// Ball collision against left and right borders of the game border
@@ -37,11 +39,11 @@ void Physics::update(State &state)
 		CheckCollisionCircleRec(newBallPosition, ball.r, bottomBorder))
 	{
 		ball.bounceVertical();
-		return;
+		bounced = true;
 	}
 
 	// Ball collision against player
-	if (CheckCollisionCircleRec(newBallPosition, ball.r, player.box))
+	if (!bounced && CheckCollisionCircleRec(newBallPosition, ball.r, player.box))
 	{
 		switch (Utils::getCollisionSideRectCircle(player.box, ball.position))
 		{
@@ -56,7 +58,7 @@ void Physics::update(State &state)
 		}
 	} 
 	// Ball collision against enemy
-	else if (CheckCollisionCircleRec(newBallPosition, ball.r, enemy.box))
+	else if (!bounced && CheckCollisionCircleRec(newBallPosition, ball.r, enemy.box))
 	{
 		switch (Utils::getCollisionSideRectCircle(enemy.box, ball.position))
 		{
@@ -69,6 +71,10 @@ void Physics::update(State &state)
 				ball.bounceHorizontal();
 				break;
 		}
+	}
+	else if (!bounced)
+	{
+		ball.noBounce();
 	}
 
 	player.update();

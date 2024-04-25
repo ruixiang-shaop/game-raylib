@@ -13,6 +13,7 @@ struct Ball
 
 	void bounceHorizontal();
 	void bounceVertical();
+	void noBounce();
 
 	Vector2 position;
 	Vector2 speed {0, 0};

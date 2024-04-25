@@ -9,7 +9,6 @@ void Ball::update()
 {
 	position.x += speed.x;
 	position.y += speed.y;
-	this->bounced = false;
 }
 
 void Ball::bounceHorizontal()
@@ -22,6 +21,11 @@ void Ball::bounceVertical()
 {
 	this->speed.y *= -1;
 	this->bounced = true;
+}
+
+void Ball::noBounce()
+{
+	this->bounced = false;
 }
 
 void Player::update()
