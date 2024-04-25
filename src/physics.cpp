@@ -12,20 +12,18 @@ void Physics::update(State &state)
 	auto &enemy = state.enemy;
 	auto &ball = state.ball;
 
-	player.update();
-	enemy.update();
-	ball.update();
+	Vector2 newBallPosition = Utils::getNextPosition(ball.position, ball.speed);
 
 	// Ball collision against left and right borders of the game border
 	Rectangle leftBorder {Screen::GamePosition.x, Screen::GamePosition.y, 0, Screen::GamePosition.y+Screen::GameHeight};
 	Rectangle rightBorder {Screen::GameWidth, Screen::GamePosition.y, 0, Screen::GamePosition.y+Screen::GameHeight};
 
-	if (CheckCollisionCircleRec(ball.position, ball.r, leftBorder))
+	if (CheckCollisionCircleRec(newBallPosition, ball.r, leftBorder))
 	{
 		state.roundState = RoundState::Lose;
 		return;
 	}
-	else if (CheckCollisionCircleRec(ball.position, ball.r, rightBorder))
+	else if (CheckCollisionCircleRec(newBallPosition, ball.r, rightBorder))
 	{
 		state.roundState = RoundState::Win;
 		return;
@@ -35,15 +33,15 @@ void Physics::update(State &state)
 	Rectangle topBorder {Screen::GamePosition.x, Screen::GamePosition.y, Screen::GameWidth, 0};
 	Rectangle bottomBorder {Screen::GamePosition.x, Screen::GamePosition.y+Screen::GameHeight, Screen::GameWidth, 0};
 
-	if (CheckCollisionCircleRec(ball.position, ball.r, topBorder) ||
-		CheckCollisionCircleRec(ball.position, ball.r, bottomBorder))
+	if (CheckCollisionCircleRec(newBallPosition, ball.r, topBorder) ||
+		CheckCollisionCircleRec(newBallPosition, ball.r, bottomBorder))
 	{
 		ball.bounceVertical();
 		return;
 	}
 
 	// Ball collision against player
-	if (CheckCollisionCircleRec(ball.position, ball.r, player.box))
+	if (CheckCollisionCircleRec(newBallPosition, ball.r, player.box))
 	{
 		switch (Utils::getCollisionSideRectCircle(player.box, ball.position))
 		{
@@ -58,7 +56,7 @@ void Physics::update(State &state)
 		}
 	} 
 	// Ball collision against enemy
-	else if (CheckCollisionCircleRec(ball.position, ball.r, enemy.box))
+	else if (CheckCollisionCircleRec(newBallPosition, ball.r, enemy.box))
 	{
 		switch (Utils::getCollisionSideRectCircle(enemy.box, ball.position))
 		{
@@ -72,6 +70,10 @@ void Physics::update(State &state)
 				break;
 		}
 	}
+
+	player.update();
+	enemy.update();
+	ball.update();
 }
 
 }

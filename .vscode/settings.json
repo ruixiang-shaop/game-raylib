@@ -58,5 +58,12 @@
 		"*.m": "cpp",
 		"compare": "cpp",
 		"concepts": "cpp"
-	}
+	},
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/ruixi/game-raylib",
+			"binaryPath": "/home/ruixi/game-raylib/Game",
+			"binaryArgs": []
+		}
+	]
 }

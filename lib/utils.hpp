@@ -46,9 +46,9 @@ static Vector2 getUnityVector(int degrees)
 	return Vector2{x, y};
 }
 
-static Vector2 getPreviousPosition(Vector2 oldPosition, Vector2 speed)
+static Vector2 getNextPosition(Vector2 oldPosition, Vector2 speed)
 {
-	return {oldPosition.x - speed.x, oldPosition.y - speed.y};
+	return {oldPosition.x + speed.x, oldPosition.y + speed.y};
 }
 
 static bool isPointOnUpperSideOfLine(Vector2 l1, Vector2 l2, Vector2 p)
